@@ -1,0 +1,79 @@
+{
+  "tree_accuracy": 73.0,
+  "reg_r2": 0.862,
+  "reg_mae_rel": 0.048,
+  "rows": 4500,
+  "zones": {
+    "0": {
+      "name": "Moderate-rain, warm zone",
+      "avg_rainfall": 722,
+      "avg_temp": 22.2,
+      "main_soil": "Loamy",
+      "top_crops": [
+        "Potato",
+        "Chickpea",
+        "Wheat"
+      ],
+      "records": 1241
+    },
+    "1": {
+      "name": "Moderate-rain, warm zone",
+      "avg_rainfall": 606,
+      "avg_temp": 26.9,
+      "main_soil": "Red",
+      "top_crops": [
+        "Millet",
+        "Maize",
+        "Groundnut"
+      ],
+      "records": 584
+    },
+    "2": {
+      "name": "Wet, warm zone",
+      "avg_rainfall": 1064,
+      "avg_temp": 24.4,
+      "main_soil": "Alluvial",
+      "top_crops": [
+        "Rice",
+        "Wheat",
+        "Sugarcane"
+      ],
+      "records": 1178
+    },
+    "3": {
+      "name": "Moderate-rain, warm zone",
+      "avg_rainfall": 770,
+      "avg_temp": 26.0,
+      "main_soil": "Black",
+      "top_crops": [
+        "Cotton",
+        "Chickpea",
+        "Sugarcane"
+      ],
+      "records": 837
+    },
+    "4": {
+      "name": "Dry, warm zone",
+      "avg_rainfall": 569,
+      "avg_temp": 24.6,
+      "main_soil": "Sandy",
+      "top_crops": [
+        "Millet",
+        "Potato",
+        "Groundnut"
+      ],
+      "records": 660
+    }
+  },
+  "crop_counts": {
+    "Chickpea": 521,
+    "Potato": 516,
+    "Sugarcane": 515,
+    "Rice": 507,
+    "Maize": 495,
+    "Wheat": 493,
+    "Millet": 493,
+    "Groundnut": 484,
+    "Cotton": 476
+  }
+}

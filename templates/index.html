@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Agriculture Crop Recommender</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="top">
+  <h1>What should I plant?</h1>
+  <p>Enter your field's rainfall, average temperature and soil. Three data-mining models suggest the crop that fits best and estimate its yield.</p>
+</header>
+
+<main class="grid">
+  <form method="post" class="panel" novalidate>
+    <h2>Your field</h2>
+    <label>Annual rainfall (mm)
+      <input type="number" name="rainfall" step="any" value="{{ form.rainfall }}" placeholder="e.g. 1200" required></label>
+    <label>Average temperature (°C)
+      <input type="number" name="temp" step="any" value="{{ form.temp }}" placeholder="e.g. 26" required></label>
+    <label>Soil type
+      <select name="soil" required>
+        <option value="" disabled {{ 'selected' if not form.soil }}>Choose soil</option>
+        {% for s in soils %}<option {{ 'selected' if form.soil == s }}>{{ s }}</option>{% endfor %}
+      </select></label>
+    <button type="submit">Recommend crops</button>
+    {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  </form>
+
+  <section class="panel results" aria-live="polite">
+    {% if result %}
+      {% set top, zone = result %}
+      <h2>Best crop: <span class="best">{{ top[0].crop }}</span></h2>
+      <p class="zone">K-Means places your field in the <strong>{{ zone.name }}</strong> (avg {{ zone.avg_rainfall }} mm, {{ zone.avg_temp }} °C, mostly {{ zone.main_soil }} soil). Crops common there: {{ zone.top_crops | join(', ') }}.</p>
+      <ol class="crops">
+        {% for r in top %}
+        <li>
+          <div class="row"><strong>{{ r.crop }}</strong><span>{{ r.yield }} {{ r.unit }} expected</span></div>
+          <div class="bar"><i style="width: {{ [r.suitability, 2] | max }}%"></i></div>
+          <small>Decision Tree suitability {{ r.suitability }}%</small>
+        </li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <h2>Results appear here</h2>
+      <p class="muted">Fill in the form to see ranked crops, expected yield and your agro-climate zone.</p>
+    {% endif %}
+  </section>
+</main>
+
+<section class="mining">
+  <h2>How the data mining works</h2>
+  <div class="cols">
+    <article><h3>Decision Tree</h3><p>Learns rules like "heavy rain + clay soil → rice" from {{ m.rows }} historical records. Test accuracy: <strong>{{ m.tree_accuracy }}%</strong>.</p></article>
+    <article><h3>Regression</h3><p>A polynomial ridge regression for each crop estimates yield from rainfall, temperature and soil. Test R²: <strong>{{ m.reg_r2 }}</strong>.</p></article>
+    <article><h3>K-Means</h3><p>Groups all records into {{ m.zones|length }} agro-climate zones so a new field can be matched to similar ones.</p></article>
+  </div>
+  <table>
+    <caption>Agro-climate zones found by K-Means</caption>
+    <thead><tr><th>Zone</th><th>Rainfall</th><th>Temp</th><th>Main soil</th><th>Top crops</th></tr></thead>
+    <tbody>
+    {% for id, z in m.zones.items() %}
+      <tr><td>{{ z.name }}</td><td>{{ z.avg_rainfall }} mm</td><td>{{ z.avg_temp }} °C</td><td>{{ z.main_soil }}</td><td>{{ z.top_crops | join(', ') }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+<footer>Training data is synthetic, built from typical crop requirements. Replace <code>data/crop_data.csv</code> with real records for field use.</footer>
+</body>
+</html>

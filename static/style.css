@@ -1,0 +1,33 @@
+:root{--bg:#edf2ea;--ink:#1c2a22;--muted:#5d6b62;--card:#fbfcf9;--line:#cfd9cb;--green:#2e6b4b;--soil:#6a4b32;--rain:#3a7ca0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .6rem}
+.top{max-width:960px;margin:0 auto;padding:3rem 1.25rem 1.5rem}
+.top h1{font-size:clamp(2.2rem,6vw,3.6rem);color:var(--green)}
+.top p{max-width:60ch;color:var(--muted);margin:0}
+.grid{max-width:960px;margin:0 auto;padding:0 1.25rem;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:1.25rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.5rem}
+label{display:block;font-weight:600;margin-bottom:1rem}
+input,select{display:block;width:100%;margin-top:.35rem;padding:.7rem .8rem;font:inherit;border:1px solid var(--line);border-radius:6px;background:#fff}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--rain);outline-offset:1px}
+button{width:100%;padding:.85rem;border:0;border-radius:6px;background:var(--green);color:#fff;font:600 1rem system-ui,sans-serif;cursor:pointer}
+button:hover{background:#25593d}
+.error{color:#a3262a;margin:.8rem 0 0}
+.best{color:var(--green)}
+.zone,.muted{color:var(--muted)}
+.crops{list-style:none;padding:0;margin:1rem 0 0}
+.crops li{padding:.8rem 0;border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;gap:1rem}
+.row span{color:var(--soil)}
+.bar{height:8px;background:#e1e8dd;border-radius:4px;margin:.4rem 0 .2rem;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--rain)}
+small{color:var(--muted)}
+.mining{max-width:960px;margin:2.5rem auto 0;padding:0 1.25rem}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem;margin-bottom:1.5rem}
+.cols article{border-left:3px solid var(--soil);padding-left:1rem}
+.cols p{margin:0;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);display:block;overflow-x:auto}
+caption{text-align:left;font-weight:600;padding:.5rem 0}
+th,td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+footer{max-width:960px;margin:2rem auto;padding:0 1.25rem;color:var(--muted);font-size:.9rem}
+@media(max-width:760px){.grid,.cols{grid-template-columns:1fr}}
